@@ -2,26 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.side-menu {
+  background-image: url('/bg-main-desktop.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.input {
+  @apply outline-none px-2 py-1 border rounded-md focus:border-purple-950;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.card-front {
+  position: absolute;
+  right: -10%;
+  top: 30%;
+  width: 330px;
+  height: 180px;
+  background-image: url('/bg-card-front.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.card-back {
+  width: 330px;
+  height: 180px;
+  position: absolute;
+  right: -20%;
+  top: 50%;
+  background-image: url('/bg-card-back.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
