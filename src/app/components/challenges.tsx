@@ -1,19 +1,21 @@
+
 import Link from 'next/link'
-import React from 'react'
-import { challengesDate } from '../challengesData'
+import Image from 'next/image'
+import { challengesData } from '../data'
 
 function Challenges() {
   return (
-    <div className='grid lg:grid-cols-4 md:grid-cols-2 px-12 gap-5 mx-auto pt-10 border-t'>
-      {challengesDate && challengesDate.map(challenge =>
-        <Link href={challenge.href} className="max-w-sm mx-auto border rounded-lg overflow-hidden shadow-xl text-left">
-          <div className="px-6 py-4">
+    <div className='grid md:grid-cols-3 px-12 gap-3 mx-auto pt-10 border-t'>
+      {challengesData && challengesData.map((challenge, index) =>
+        <Link key={index} href={challenge.href} className="px-6 py-4 mx-auto border rounded-lg overflow-hidden shadow-xl text-left">
+          <div className="">
             <div className="text-lg mb-4">{challenge.name}</div>
             <p
               className="text-gray-700 text-xs font-light text-left"
               dangerouslySetInnerHTML={{ __html: challenge.description }}
             />
           </div>
+          <Image src={challenge.image} alt='image' width={1000} height={1000} className='mt-4 shadow-lg w-[540px] h-[350px]' />
         </Link>)
       }
     </div>
