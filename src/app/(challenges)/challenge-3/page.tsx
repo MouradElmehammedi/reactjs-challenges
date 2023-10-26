@@ -1,19 +1,63 @@
 "use client";
-import Image from "next/image";
-import React from "react";
 
-function Reply() {
+import Image from "next/image";
+import React, { useState } from "react";
+
+interface Comment {
+  id: number;
+  userId: number;
+  message: string;
+  likes: number;
+  createdAt: string;
+  replys: Comment[] | undefined;
+}
+
+interface User {
+  id: number;
+  name: string;
+}
+
+function Reply({
+  comment,
+  currentUser,
+  key,
+  updateComments,
+}: {
+  comment: Comment;
+  currentUser: User | null;
+  key: number;
+  updateComments: (updatedComment: Comment) => void;
+}) {
+  const handleLikePlus = () => {
+    const updatedComment = { ...comment, likes: comment.likes + 1 };
+    updateComments(updatedComment);
+  };
+
+  const handleLikeMunis = () => {
+    const updatedComment = {
+      ...comment,
+      likes: comment.likes > 0 ? comment.likes - 1 : 0,
+    };
+    updateComments(updatedComment);
+  };
   return (
     <>
-      <div className="flex items-center ml-10 pl-10 border-l-gray-400 border">
+      <div
+        key={key}
+        className="flex items-center ml-10 pl-10 border-l-gray-400 border"
+      >
         <div className="bg-white p-4 mb-4 flex-1 flex items-center space-x-4 rounded-md">
           <div
             style={{ backgroundColor: "hsl(223, 19%, 93%)" }}
             className="mb-auto py-2 px-3 text-center flex flex-col gap-3 rounded-md text-gray-500 font-semibold"
           >
-            <span>+</span>
-            <span className="text-purple-950">12</span>
-            <span>-</span>
+            <span className="cursor-pointer" onClick={handleLikePlus}>
+              +
+            </span>
+            <span className="text-purple-950">{comment.likes}</span>
+            <span className="cursor-pointer" onClick={handleLikeMunis}>
+              -
+            </span>
           </div>
           <div className="w-full">
             <div className="flex w-full justify-between">
@@ -26,7 +70,9 @@ function Reply() {
                   className=""
                 />
                 <h1 className="text-black font-bold text-sm">amrobson</h1>
-                <span className="text-sm text-gray-400">1 mouth ago</span>
+                <span className="text-sm text-gray-400">
+                  {comment.createdAt}
+                </span>
               </div>
               <button
                 style={{ color: "hsl(238, 40%, 52%)" }}
@@ -41,12 +87,7 @@ function Reply() {
                 Reply
               </button>
             </div>
-            <p className="mt-2 text-gray-400 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
-              nihil dolores quidem perferendis modi corporis corrupti cum
-              assumenda, facilis sint nostrum. Quas repudiandae illo incidunt
-              laborum maiores itaque, corrupti sit.
-            </p>
+            <p className="mt-2 text-gray-400 text-sm">{comment.message}</p>
           </div>
         </div>
       </div>
@@ -54,17 +95,47 @@ function Reply() {
   );
 }
 
-function Comment() {
+function CommentComponent({
+  comment,
+  currentUser,
+  key,
+  updateComments,
+}: {
+  comment: Comment;
+  currentUser: User | null;
+  key: number;
+  updateComments: (updatedComment: Comment) => void;
+}) {
+  const handleLikePlus = () => {
+    const updatedComment = { ...comment, likes: comment.likes + 1 };
+    updateComments(updatedComment);
+  };
+
+  const handleLikeMunis = () => {
+    const updatedComment = {
+      ...comment,
+      likes: comment.likes > 0 ? comment.likes - 1 : 0,
+    };
+    updateComments(updatedComment);
+  };
+
   return (
     <>
-      <div className="bg-white p-4 mb-4 flex items-center space-x-4 rounded-md">
+      <div
+        key={key}
+        className="bg-white p-4 mb-4 flex items-center space-x-4 rounded-md"
+      >
         <div
           style={{ backgroundColor: "hsl(223, 19%, 93%)" }}
           className="mb-auto py-2 px-3 text-center flex flex-col gap-3 rounded-md text-gray-500 font-semibold"
         >
-          <span>+</span>
-          <span className="text-purple-950">12</span>
-          <span>-</span>
+          <span className="cursor-pointer" onClick={handleLikePlus}>
+            +
+          </span>
+          <span className="text-purple-950">{comment.likes}</span>
+          <span className="cursor-pointer" onClick={handleLikeMunis}>
+            -
+          </span>
         </div>
         <div className="w-full">
           <div className="flex w-full justify-between">
@@ -77,7 +148,7 @@ function Comment() {
                 className=""
               />
               <h1 className="text-black font-bold text-sm">amrobson</h1>
-              <span className="text-sm text-gray-400">1 mouth ago</span>
+              <span className="text-sm text-gray-400">{comment.createdAt}</span>
             </div>
             <button
               style={{ color: "hsl(238, 40%, 52%)" }}
@@ -92,28 +163,92 @@ function Comment() {
               Reply
             </button>
           </div>
-          <p className="mt-2 text-gray-400 text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non nihil
-            dolores quidem perferendis modi corporis corrupti cum assumenda,
-            facilis sint nostrum. Quas repudiandae illo incidunt laborum maiores
-            itaque, corrupti sit.
-          </p>
+          <p className="mt-2 text-gray-400 text-sm">{comment.message}</p>
         </div>
       </div>
-      {/* other comments reply */}
-      <div className="mb-4">
-        <Reply />
-        <Reply />
-      </div>
+      {comment.replys ? (
+        <div className="mb-4">
+          {comment.replys.map((reply) => (
+            <Reply
+              key={reply.id}
+              comment={reply}
+              currentUser={currentUser}
+              updateComments={updateComments}
+            />
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
 
 function Page() {
+  const [comments, setComments] = useState<Comment[]>([
+    {
+      id: 1,
+      userId: 1,
+      message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+      nihil dolores quidem perferendis modi corporis corrupti cum
+      assumenda, facilis sint nostrum. Quas repudiandae illo incidunt
+      laborum maiores itaque, corrupti sit.`,
+      likes: 0,
+      createdAt: "1 mounth ago",
+      replys: [
+        {
+          id: 2,
+          userId: 2,
+          message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+          nihil dolores quidem perferendis modi corporis corrupti cum
+          assumenda, facilis sint nostrum. Quas repudiandae illo incidunt
+          laborum maiores itaque, corrupti sit.`,
+          likes: 2,
+          createdAt: "yesterday",
+          replys: [],
+        },
+        {
+          id: 2,
+          userId: 2,
+          message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+          nihil dolores quidem perferendis modi corporis corrupti cum
+          assumenda, facilis sint nostrum. Quas repudiandae illo incidunt
+          laborum maiores itaque, corrupti sit.`,
+          likes: 2,
+          createdAt: "yesterday",
+          replys: [],
+        },
+      ],
+    },
+  ]);
+
+  const [user, setUser] = useState<User>({
+    id: 1,
+    name: "Mourad",
+  });
+
+  const updateComments = (updatedComment: Comment) => {
+    const commentIndex = comments.findIndex((c) => c.id === updatedComment.id);
+
+    if (commentIndex !== -1) {
+      const updatedComments = [...comments];
+      updatedComments[commentIndex] = updatedComment;
+      setComments(updatedComments);
+    }
+  };
+
   return (
     <main className="bg-gray-200 flex w-full min-h-screen items-center justify-center">
       <div className="w-[600px] border p-6 rounded-lg">
-        <Comment />
+        {comments.map((cmt) => (
+          <CommentComponent
+            key={cmt.id}
+            comment={cmt}
+            currentUser={user}
+            updateComments={updateComments}
+          />
+        ))}
+
         <div className="bg-white p-4 flex items-center space-x-4 rounded-md">
           <Image
             src="/challenges-resources/challenge-3_interactive_comments_section/images/avatars/image-juliusomo.png"
