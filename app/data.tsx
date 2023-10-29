@@ -40,7 +40,25 @@ export const challengesData = [
         - Bonus: If you're building a purely front-end project, use localStorage to save the current state in the browser that persists when the browser is refreshed<br>
         - Bonus: Build this project as a full-stack application`,
     href: "/challenge-3",
-    images:
+    image:
       "/challenges-resources/challenge-3_interactive_comments_section/design/desktop-design.jpg",
+  },
+  {
+    name: "Multi Step Form",
+    description: `Your challenge is to build out this multi-step form and get it looking as close to the design as possible.<br><br>
+        You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.<br><br>
+        Your users should be able to:<br><br>
+        - Complete each step of the sequence<br>
+        - Go back to a previous step to update their selections<br>
+        - See a summary of their selections on the final step and confirm their order<br>
+        - View the optimal layout for the interface depending on their device's screen size<br>
+        - See hover and focus states for all interactive elements on the page<br>
+        - Receive form validation messages if:
+          - A field has been missed<br>
+          - The email address is not formatted correctly<br>
+          - A step is submitted, but no selection has been made`,
+    href: "/challenge-4",
+    image:
+      "/challenges-resources/challenge-4_multistep_form/design/desktop-preview.jpg",
   },
 ];

@@ -8,6 +8,12 @@
   background-size: cover;
 }
 
+.challenge_4_sidebar {
+  background-image: url('/challenges-resources/challenge-4_multistep_form/assets/images/bg-sidebar-desktop.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .input {
   @apply outline-none px-2 py-1 border rounded-md focus:border-purple-950;
 }
