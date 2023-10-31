@@ -5,8 +5,14 @@ function Page() {
     <main className="bg-gray-200 flex w-full min-h-screen items-center justify-center">
       <div className="w-[600px] border rounded-lg overflow-hidden bg-white">
         <div className='bg-pink-600  p-6 flex rounded-t-md items-center justify-between text-white'>
-          <div><span>14</span><span>AUG 2020</span></div>
-          <div><div>1:10pm</div><div>Friday</div></div>
+          <div>
+            <span>14</span>
+            <span>AUG 2020</span>
+          </div>
+          <div>
+            <div>1:10pm</div>
+            <div>Friday</div>
+          </div>
         </div>
 
         <div className='mx-4 mt-4 p-6'>
