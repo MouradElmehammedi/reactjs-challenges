@@ -1,3 +1,11 @@
+export const tasksData = [
+  { id: 1, title: 'Task 1', completed: false, createdAt: '2023-10-30T08:00:00' },
+  { id: 2, title: 'Task 2', completed: true, createdAt: '2023-10-30T09:15:00' },
+  { id: 3, title: 'Task 3', completed: false, createdAt: '2023-10-30T10:30:00' },
+  { id: 4, title: 'Task 4', completed: true, createdAt: '2023-10-30T11:45:00' },
+  { id: 5, title: 'Task 5', completed: false, createdAt: '2023-10-30T13:00:00' },
+];
+
 export const challengesData = [
   {
     name: "Interactive card details form",
@@ -60,5 +68,13 @@ export const challengesData = [
     href: "/challenge-4",
     image:
       "/challenges-resources/challenge-4_multistep_form/design/desktop-preview.jpg",
+  },
+  {
+    title: 'Challenge 5 - Todo List Form',
+    description: `Your challenge is to create a todo list form where users can add, edit, and remove tasks. <br>* Get it looking as close to the design as possible...`,
+    href: '/challenge-5',
+    images: [
+      '/challenges/challenge-1_interactive_card_details/design/active-stats.jpg',
+    ],
   },
 ];
